@@ -1,4 +1,4 @@
-def newgame
+def newgame ## initializes game
     system "clear"
     $board = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']] ### I imagine global variables aren't ideal
     $player = 'X'
@@ -7,7 +7,7 @@ def newgame
     turn
 end
 
-def turn
+def turn ## provides turn prompt, gets input, updates board, calls checkwin
     puts "Player #{$player} -- enter row & column of your desired move, separated by a space"
     play = gets.chomp
     $board[play[0].to_i][play[2].to_i] = $player
@@ -17,7 +17,7 @@ def turn
     turn
 end
 
-def printBoard
+def printBoard ## prints board
     puts "\n"
     puts "| #{$board[0][0]} | #{$board[0][1]} | #{$board[0][2]} |"
     puts "| #{$board[1][0]} | #{$board[1][1]} | #{$board[1][2]} |"
@@ -25,7 +25,7 @@ def printBoard
     puts "\n"
 end
 
-def checkWin
+def checkWin ## checks win
     lines = [[$board[0][0], $board[1][1], $board[2][2]], [$board[0][2], $board[1][1], $board[2][0]]] ## collecting all rows, columns and diagonals. here are diagonals
     $board.each {|row| lines << row} ## horizontals
     3.times { |i| 
@@ -37,6 +37,14 @@ def checkWin
             restartPrompt
         end
     }
+    flatboard = $board
+
+    ## DRAW NOT YET WORKING. In Rails would use "blank" but that doesn't work here.
+    # flatboard.flatten 
+    # if flatboard.include? ' '
+    #     puts "It's a draw."
+    #     restartPrompt
+    # end
 end
 
 def restartPrompt
